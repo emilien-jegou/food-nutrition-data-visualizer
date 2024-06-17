@@ -1,4 +1,5 @@
 # Build
+.env
 /dist
 /lib
 /lib-types
@@ -39,3 +40,6 @@ lerna-debug.log*
 # Yarn
 .yarn/*
 !.yarn/releases
+
+# Nix
+.direnv

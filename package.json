@@ -1,10 +1,7 @@
 {
   "name": "my-qwik-empty-starter",
   "description": "App with Routing built-in ready to create your app",
-  "engines": {
-    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
-  },
-  "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
+  "engines": { "node": "^18.17.0" },
   "private": true,
   "trustedDependencies": [
     "sharp"
@@ -18,12 +15,15 @@
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
+    "dev.ts": "concurrently -n server,tsc -c magenta,cyan \"npm run dev\" \"npm run ts-watch\"",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
+    "lint.fix": "npm run lint -- --fix",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
+    "ts-watch": "tsc --noEmit --incremental --preserveWatchOutput --pretty --watch",
     "qwik": "qwik"
   },
   "devDependencies": {
@@ -33,12 +33,23 @@
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-plugin-qwik": "^1.5.7",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5",
     "prettier": "^3.2.5",
     "typescript": "5.4.5",
     "undici": "*",
     "vite": "^5.2.10",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "tailwindcss": "^3.4.1",
+    "@qwik-ui/headless": "^0.2.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "dependencies": {
+    "tailwind-merge": "^2.2.0"
   }
 }
