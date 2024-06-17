@@ -1,71 +1,58 @@
-# Qwik City App ⚡️
+# Food nutrition data visualizer
 
-- [Qwik Docs](https://qwik.dev/)
-- [Discord](https://qwik.dev/chat)
-- [Qwik GitHub](https://github.com/QwikDev/qwik)
-- [@QwikDev](https://twitter.com/QwikDev)
-- [Vite](https://vitejs.dev/)
+https://emilien-jegou.github.io/food-nutrition-data-visualizer/
 
----
+## Overview
 
-## Project Structure
+A website designed to simplify the browsing and visualization of the USDA's FoodData Central data, specifically focusing on non-processed foods. It provides a user-friendly interface for accessing and understanding the nutritional composition of these foods to have a better understanding of their role in a diet.
 
-This project is using Qwik with [QwikCity](https://qwik.dev/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
+## Installation
 
-Inside your project, you'll see the following directory structure:
+You will require the following:
+- Node.js >=18.17
+- npm
 
-```
-├── public/
-│   └── ...
-└── src/
-    ├── components/
-    │   └── ...
-    └── routes/
-        └── ...
+Clone the repository and install the necessary dependencies:
+```bash
+npm install
 ```
 
-- `src/routes`: Provides the directory-based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.dev/qwikcity/routing/overview/) for more info.
+## Data
 
-- `src/components`: Recommended directory for components.
+The data used for this project has been taken from the [USDA website](https://fdc.nal.usda.gov/download-datasets.html) directly, and was parsed using `zx`, you can replicate the same process using the following script:
 
-- `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
+```typescript
+const parseFood = (food) =>  {
+  let calorieConversionFactor = food.nutrientConversionFactors?.find(f => f.type === '.CalorieConversionFactor');
 
-## Add Integrations and deployment
+  if (calorieConversionFactor) {
+    calorieConversionFactor = {...calorieConversionFactor};
+    delete calorieConversionFactor['type'];
+  }
 
-Use the `npm run qwik add` command to add additional integrations. Some examples of integrations includes: Cloudflare, Netlify or Express Server, and the [Static Site Generator (SSG)](https://qwik.dev/qwikcity/guides/static-site-generation/).
+  return ({
+    name: food.description,
+    category: food.foodCategory.description,
+    nutrients: Object.fromEntries(food.foodNutrients.map(x => [x.nutrient.name, x.amount, ])),
+    proteinConversionFactor: food.nutrientConversionFactors?.find(f => f.type === '.ProteinConversionFactor')?.value,
+    calorieConversionFactor: calorieConversionFactor,
+    metadata: food.nutrientConversionFactors?.filter(f => !['.ProteinConversionFactor', '.CalorieConversionFactor'].includes(f.type)) || null,
+  });
+}
 
-```shell
-npm run qwik add # or `yarn qwik add`
+(async () => {
+  const { stdout } = await $`cat foundationDownload.json`;
+  const foods = JSON.parse(stdout)['FoundationFoods'];
+  const data = foods.map(parseFood);
+  console.log(JSON.stringify(data, null ,' '));
+})()
+
 ```
 
-## Development
+## License and usage
 
-Development mode uses [Vite's development server](https://vitejs.dev/). The `dev` command will server-side render (SSR) the output during development.
+This project is licensed under the MIT License.
 
-```shell
-npm start # or `yarn start`
-```
+The data provided by the USDA National Nutrient Database for Standard Reference (SR) is in the public domain and is free to use without restrictions. This means you are free to use, share, and modify the data for any purpose, including commercial and non-commercial applications.
 
-> Note: during dev mode, Vite may request a significant number of `.js` files. This does not represent a Qwik production build.
-
-## Preview
-
-The preview command will create a production build of the client modules, a production build of `src/entry.preview.tsx`, and run a local server. The preview server is only for convenience to preview a production build locally and should not be used as a production server.
-
-```shell
-npm run preview # or `yarn preview`
-```
-
-## Production
-
-The production build will generate client and server modules by running both client and server build commands. The build command will use Typescript to run a type check on the source code.
-
-```shell
-npm run build # or `yarn build`
-```
-
-## Static Site Generator (Node.js)
-
-```shell
-npm run build.server
-```
+For more detailed information, please refer to the USDA's official FoodData Central website and their Data Usage Terms.
