@@ -32,27 +32,30 @@
   "devDependencies": {
     "@builder.io/qwik": "^1.5.7",
     "@builder.io/qwik-city": "^1.5.7",
+    "@qwik-ui/headless": "^0.2.2",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
+    "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
-    "eslint-plugin-qwik": "^1.5.7",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5",
+    "eslint-plugin-qwik": "^1.5.7",
     "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.5",
     "undici": "*",
     "vite": "^5.2.10",
     "vite-tsconfig-paths": "^4.2.1",
-    "tailwindcss": "^3.4.1",
-    "@qwik-ui/headless": "^0.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "@modular-forms/qwik": "^0.25.0"
   },
   "dependencies": {
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "ts-essentials": "^10.0.0"
   }
 }

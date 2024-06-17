@@ -1,0 +1,39 @@
+/* Basic table styles */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    table-layout: auto;
+    min-width: 1000px;
+}
+
+/* Table header styles */
+thead {
+    position: sticky;
+}
+
+th {
+    background-color: #2D2E65; /* Blue header background */
+    color: white; /* White text */
+    padding: 4px 8px;
+    text-align: left;
+    cursor: pointer;
+    font-weight: bold;
+    position: sticky;
+    border: 1px solid #d3d3d3; /* Soft grey border */
+}
+
+/* Table body styles */
+td {
+    padding: 4px 8px;
+    border: 1px solid #d3d3d3; /* Soft grey border */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light grey background for even rows */
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Slightly darker grey on hover */
+}
