@@ -34,8 +34,11 @@ jobs:
     - name: Lint code
       run: npm run lint
 
-    - name: Build project
+    - name: Build site
       run: npm run build
+
+    - name: Build site statically
+      run: npm run build.server
 
     - name: Deploy to GitHub Pages
       uses: actions/upload-pages-artifact@v1

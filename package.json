@@ -1,7 +1,9 @@
 {
   "name": "my-qwik-empty-starter",
   "description": "App with Routing built-in ready to create your app",
-  "engines": { "node": "^18.17.0" },
+  "engines": {
+    "node": "^18.17.0"
+  },
   "private": true,
   "trustedDependencies": [
     "sharp"
@@ -12,11 +14,12 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "vite build -c adapters/static/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
-    "dev.ts": "concurrently -n server,tsc -c magenta,cyan \"npm run dev\" \"npm run ts-watch\"",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
+    "dev.ts": "concurrently -n server,tsc -c magenta,cyan \"npm run dev\" \"npm run ts-watch\"",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
